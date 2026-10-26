@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Marmitas | Mesa &amp; Sabor</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
+<body><div th:replace="~{fragments/nav :: nav}"></div>
+<main class="page"><div class="page-heading"><div><h1>Marmitas</h1><p class="muted">Acompanhe os pedidos para entrega.</p></div><a class="button" th:href="@{/home/marmitas/create}">+ Nova marmita</a></div>
+    <div class="table-wrap" th:if="${!#lists.isEmpty(marmitas)}"><table><thead><tr><th>Cliente</th><th>Telefone</th><th>Tipo</th><th>Preço</th><th>Status</th><th>Ações</th></tr></thead><tbody>
+        <tr th:each="marmita : ${marmitas}"><td th:text="${marmita.nomeCliente}"></td><td th:text="${marmita.telefone}"></td><td th:text="${marmita.tipo}"></td><td th:text="${marmita.preco != null ? 'R$ ' + marmita.preco : '—'}"></td><td th:text="${marmita.status}"></td><td><div class="actions"><a class="button button-secondary" th:href="@{/home/marmitas/{id}/update(id=${marmita.id})}">Editar</a><form th:action="@{/home/marmitas/{id}/delete(id=${marmita.id})}" method="post"><button class="button-danger" type="submit">Excluir</button></form></div></td></tr>
+    </tbody></table></div><div class="card empty" th:if="${#lists.isEmpty(marmitas)}">Nenhum pedido de marmita cadastrado.</div>
+</main></body></html>

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Editar mesa | Mesa &amp; Sabor</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
+<body><div th:replace="~{fragments/nav :: nav}"></div>
+<main class="page-narrow"><section class="card"><h1>Editar mesa</h1>
+    <form th:action="@{/home/mesas/{id}/update(id=${mesa.id})}" th:object="${mesa}" method="post">
+        <div class="field"><label for="numero">Número da mesa</label><input id="numero" th:field="*{numero}" type="number" min="1" required></div>
+        <div class="field"><label for="quantidade">Quantidade de lugares</label><input id="quantidade" th:field="*{quantidade}" type="number" min="1" required></div>
+        <div class="form-actions"><button type="submit">Salvar alterações</button><a class="button button-secondary" th:href="@{/home/mesas}">Cancelar</a></div>
+    </form>
+</section></main></body></html>

@@ -1,0 +1,13 @@
+<header class="topbar" th:fragment="nav">
+    <a class="brand" th:href="@{/home/mesas}">Mesa &amp; Sabor</a>
+    <nav class="nav-links" aria-label="Navegação principal">
+        <a th:href="@{/home/mesas}">Mesas</a>
+        <a th:href="@{/home/pedidos}">Pedidos</a>
+        <a th:href="@{/home/produtos}">Produtos</a>
+        <a th:href="@{/home/marmitas}">Marmitas</a>
+        <a th:href="@{/home/relatorios}">Relatórios</a>
+    </nav>
+    <form class="logout" th:action="@{/logout}" method="post">
+        <button class="button-secondary" type="submit">Sair</button>
+    </form>
+</header>

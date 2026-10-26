@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Editar marmita | Mesa &amp; Sabor</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
+<body><div th:replace="~{fragments/nav :: nav}"></div>
+<main class="page-narrow"><section class="card"><h1>Editar pedido de marmita</h1><form th:action="@{/home/marmitas/{id}/update(id=${marmita.id})}" th:object="${marmita}" method="post">
+    <div class="field"><label for="nomeCliente">Nome do cliente</label><input id="nomeCliente" th:field="*{nomeCliente}" required></div>
+    <div class="field"><label for="telefone">Telefone</label><input id="telefone" th:field="*{telefone}" type="tel" required></div>
+    <div class="field"><label for="endereco">Endereço</label><input id="endereco" th:field="*{endereco}" required></div>
+    <div class="field"><label for="tipo">Tipo da marmita</label><input id="tipo" th:field="*{tipo}" required></div>
+    <div class="field"><label for="preco">Preço</label><input id="preco" th:field="*{preco}" type="number" min="0" step="0.01"></div>
+    <div class="field"><label for="status">Status</label><select id="status" th:field="*{status}"><option value="preparando">Preparando</option><option value="pronto">Pronto</option><option value="entregue">Entregue</option></select></div>
+    <div class="form-actions"><button type="submit">Salvar alterações</button><a class="button button-secondary" th:href="@{/home/marmitas}">Cancelar</a></div>
+</form></section></main></body></html>

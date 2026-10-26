@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Pedidos abertos | Mesa &amp; Sabor</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
+<body><div th:replace="~{fragments/nav :: nav}"></div>
+<main class="page"><div class="page-heading"><div><h1>Pedidos abertos</h1><p class="muted">Acompanhe os pedidos em andamento no salão.</p></div><a class="button" th:href="@{/home/pedidos/pedido-produto/create}">+ Novo pedido</a></div>
+    <div class="table-wrap" th:if="${!#lists.isEmpty(pedidos)}"><table><thead><tr><th>Pedido</th><th>Mesa</th><th>Itens</th><th>Total</th><th>Aberto em</th><th>Ações</th></tr></thead><tbody>
+        <tr th:each="pedido : ${pedidos}"><td th:text="${'#' + pedido.id}"></td><td th:text="${pedido.mesa.numero}"></td><td><span th:each="item, stat : ${pedido.produtosRelacao}"><span th:text="${item.quantidade + 'x ' + item.produto.nome}"></span><span th:if="${!stat.last}">, </span></span></td><td th:text="${'R$ ' + pedido.total}"></td><td th:text="${pedido.createdAt != null ? #temporals.format(pedido.createdAt, 'dd/MM/yyyy HH:mm') : '—'}"></td><td><div class="actions"><form th:action="@{/home/pedidos/{id}/concluir(id=${pedido.id})}" method="post"><button type="submit">Concluir</button></form><form th:action="@{/home/pedidos/{id}/delete(id=${pedido.id})}" method="post"><button class="button-danger" type="submit">Excluir</button></form></div></td></tr>
+    </tbody></table></div><div class="card empty" th:if="${#lists.isEmpty(pedidos)}">Não há pedidos abertos no momento.</div>
+</main></body></html>

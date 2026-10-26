@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mesa &amp; Sabor</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<main class="page">
+    <section class="hero">
+        <h1>Seu salão, organizado em um só lugar.</h1>
+        <p>Gerencie mesas, acompanhe pedidos, controle produtos e organize as marmitas do seu negócio.</p>
+        <a class="button" th:href="@{/login}">Entrar no sistema</a>
+        <a class="button button-secondary" th:href="@{/cadastro}">Criar conta</a>
+    </section>
+    <section class="grid" style="margin-top: 22px">
+        <article class="card"><h2>Mesas</h2><p class="muted">Cadastre mesas e confira a capacidade do salão.</p></article>
+        <article class="card"><h2>Pedidos</h2><p class="muted">Registre itens, acompanhe pedidos abertos e conclua vendas.</p></article>
+        <article class="card"><h2>Produtos</h2><p class="muted">Organize o cardápio e acompanhe o estoque.</p></article>
+    </section>
+</main>
+</body>
+</html>
