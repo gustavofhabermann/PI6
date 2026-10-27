@@ -111,6 +111,10 @@ src/
 └── test/                 # Testes automatizados
 ```
 
+## Fluxograma e classes
+
+Consulte o [fluxograma do sistema e a descricao individual das classes](projintegrador/docs/FLUXOGRAMA.md).
+
 ## Executar os testes
 
 No Windows:
