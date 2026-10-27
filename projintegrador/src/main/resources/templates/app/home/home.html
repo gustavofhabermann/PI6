@@ -5,6 +5,7 @@
 <div th:replace="~{fragments/nav :: nav}"></div>
 <main class="page">
     <div class="page-heading"><div><h1>Mesas</h1><p class="muted">Organize o salão e a capacidade de atendimento.</p></div><a class="button" th:href="@{/home/mesas/create}">+ Nova mesa</a></div>
+    <p class="alert" th:if="${param.erro == 'em-uso'}">Esta mesa está vinculada a pedidos e não pode ser excluída.</p>
     <div class="table-wrap" th:if="${!#lists.isEmpty(mesas)}"><table><thead><tr><th>Número</th><th>Lugares</th><th>Ações</th></tr></thead><tbody>
         <tr th:each="mesa : ${mesas}"><td th:text="${mesa.numero}"></td><td th:text="${mesa.quantidade}"></td><td><div class="actions"><a class="button button-secondary" th:href="@{/home/mesas/{id}/update(id=${mesa.id})}">Editar</a><form th:action="@{/home/mesas/{id}/delete(id=${mesa.id})}" method="post"><button class="button-danger" type="submit">Excluir</button></form></div></td></tr>
     </tbody></table></div>

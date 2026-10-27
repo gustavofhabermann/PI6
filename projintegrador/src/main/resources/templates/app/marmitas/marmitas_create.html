@@ -2,7 +2,7 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Nova marmita | Mesa &amp; Sabor</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
 <body><div th:replace="~{fragments/nav :: nav}"></div>
-<main class="page-narrow"><section class="card"><h1>Novo pedido de marmita</h1><form th:action="@{/home/marmitas/create}" th:object="${marmita}" method="post">
+<main class="page-narrow"><section class="card"><h1>Novo pedido de marmita</h1><p class="alert" th:if="${param.erro}">Preencha os dados corretamente; o preço não pode ser negativo.</p><form th:action="@{/home/marmitas/create}" th:object="${marmita}" method="post">
     <div class="field"><label for="nomeCliente">Nome do cliente</label><input id="nomeCliente" th:field="*{nomeCliente}" required></div>
     <div class="field"><label for="telefone">Telefone</label><input id="telefone" th:field="*{telefone}" type="tel" required></div>
     <div class="field"><label for="endereco">Endereço</label><input id="endereco" th:field="*{endereco}" required></div>

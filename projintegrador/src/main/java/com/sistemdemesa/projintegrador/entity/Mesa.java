@@ -10,8 +10,10 @@ public class Mesa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, unique = true)
+    @NotNull
     @Min(1)
     private Integer numero;
+    @NotNull
     @Min(1)
     private Integer quantidade = 4;
 

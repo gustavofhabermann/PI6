@@ -5,6 +5,8 @@ import com.sistemdemesa.projintegrador.repository.MarmitaRepository;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -14,6 +16,11 @@ public class MarmitaController {
 
     public MarmitaController(MarmitaRepository r) {
         repo = r;
+    }
+
+    @InitBinder
+    void bloquearId(WebDataBinder binder) {
+        binder.setDisallowedFields("id");
     }
 
     @GetMapping
@@ -29,7 +36,10 @@ public class MarmitaController {
     }
 
     @PostMapping("/create")
-    String salvar(@Valid @ModelAttribute Marmita x) {
+    String salvar(@Valid @ModelAttribute("marmita") Marmita x, BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/home/marmitas/create?erro=dados";
+        }
         repo.save(x);
         return "redirect:/home/marmitas";
     }
@@ -41,7 +51,10 @@ public class MarmitaController {
     }
 
     @PostMapping("/{id}/update")
-    String atualizar(@PathVariable Long id, @Valid @ModelAttribute Marmita x) {
+    String atualizar(@PathVariable Long id, @Valid @ModelAttribute("marmita") Marmita x, BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/home/marmitas/" + id + "/update?erro=dados";
+        }
         Marmita e = repo.findById(id).orElseThrow();
         e.setNomeCliente(x.getNomeCliente());
         e.setTelefone(x.getTelefone());

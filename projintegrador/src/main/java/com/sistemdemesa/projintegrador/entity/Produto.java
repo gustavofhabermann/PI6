@@ -17,11 +17,14 @@ public class Produto {
     @DecimalMin("0")
     private BigDecimal precoCompra;
     @Column(name = "preco_venda", nullable = false)
+    @NotNull
     @DecimalMin("0")
     private BigDecimal precoVenda;
+    @NotNull
     @Min(0)
     private Integer quantidade = 0;
     @Column(nullable = false)
+    @NotBlank
     private String categoria = "diversos";
 
     public Long getId() {

@@ -2,7 +2,7 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Editar produto | Mesa &amp; Sabor</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
 <body><div th:replace="~{fragments/nav :: nav}"></div>
-<main class="page-narrow"><section class="card"><h1>Editar produto</h1><form th:action="@{/home/produtos/{id}/update(id=${produto.id})}" th:object="${produto}" method="post">
+<main class="page-narrow"><section class="card"><h1>Editar produto</h1><p class="alert" th:if="${param.erro}">Revise os campos. Preços e quantidade não podem ser negativos.</p><form th:action="@{/home/produtos/{id}/update(id=${produto.id})}" th:object="${produto}" method="post">
     <div class="field"><label for="nome">Nome</label><input id="nome" th:field="*{nome}" maxlength="100" required></div>
     <div class="field"><label for="categoria">Categoria</label><input id="categoria" th:field="*{categoria}" required></div>
     <div class="field"><label for="precoCompra">Preço de compra</label><input id="precoCompra" th:field="*{precoCompra}" type="number" min="0" step="0.01"></div>

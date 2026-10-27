@@ -9,6 +9,9 @@ Aplicação web para organizar a operação de um restaurante: cadastro de mesas
 - Cadastro, edição, listagem e remoção de produtos, com categoria, preços e quantidade em estoque.
 - Cadastro, edição, listagem e remoção de pedidos de marmita.
 - Criação de pedidos associados a uma mesa, com um ou mais produtos e quantidades.
+- Validação de estoque e uso do preço cadastrado no servidor ao criar pedidos.
+- Devolução dos itens ao estoque quando um pedido aberto é cancelado.
+- Proteção de mesas e produtos que já estejam vinculados a pedidos contra exclusão acidental.
 - Listagem de pedidos abertos, com ações para concluir ou excluir.
 - Relatórios em PDF de produtos, vendas do dia e vendas do mês.
 - Interface web responsiva com Thymeleaf.
@@ -60,9 +63,9 @@ java -jar target/projintegrador-0.0.1-SNAPSHOT.jar
 1. Abra a página inicial e selecione **Criar conta**.
 2. Cadastre nome, e-mail e senha.
 3. Entre com o e-mail e a senha cadastrados.
-4. Cadastre mesas e produtos antes de criar pedidos.
+4. Use os dados de demonstração que já vêm carregados ou cadastre os seus próprios registros.
 
-As páginas de operação exigem autenticação. A página inicial, o login, o cadastro e os arquivos estáticos são públicos.
+As páginas de operação exigem autenticação. A página inicial, o login, o cadastro e os arquivos estáticos são públicos. As senhas são armazenadas com BCrypt e as operações POST usam proteção CSRF.
 
 ## Páginas principais
 
@@ -86,6 +89,10 @@ O projeto usa H2 em memória, configurado em `src/main/resources/application.pro
 
 Como o banco é temporário, os cadastros são apagados quando a aplicação é encerrada. Para desenvolvimento, não é necessária instalação nem configuração manual de um servidor de banco de dados.
 
+### Dados de demonstração
+
+Com `app.demo-data.enabled=true`, a aplicação cria mesas, produtos, pedidos de marmita e pedidos abertos e concluídos quando essas tabelas estão vazias. Os pedidos concluídos aparecem nos relatórios do dia e do mês. Nenhum usuário ou senha padrão é criado; cadastre sua própria conta pela página de cadastro. Para desligar a carga automática, altere a propriedade para `false`.
+
 ## Estrutura do projeto
 
 ```text
@@ -95,7 +102,8 @@ src/
 │   │   ├── config/       # Segurança e configuração web
 │   │   ├── controller/   # Rotas e fluxo das páginas
 │   │   ├── entity/       # Entidades JPA
-│   │   └── repository/   # Acesso aos dados
+│   │   ├── repository/   # Acesso aos dados
+│   │   └── web/          # Formulários de entrada e validação
 │   └── resources/
 │       ├── static/css/   # Estilos da interface
 │       ├── templates/    # Páginas Thymeleaf

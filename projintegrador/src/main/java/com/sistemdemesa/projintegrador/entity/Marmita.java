@@ -19,8 +19,10 @@ public class Marmita {
     private String endereco;
     @NotBlank
     private String tipo;
+    @DecimalMin("0")
     private BigDecimal preco;
     @NotBlank
+    @Pattern(regexp = "preparando|pronto|entregue")
     private String status = "preparando";
 
     public Long getId() {

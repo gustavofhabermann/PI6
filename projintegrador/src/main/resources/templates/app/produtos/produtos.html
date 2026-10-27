@@ -3,6 +3,7 @@
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Produtos | Mesa &amp; Sabor</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
 <body><div th:replace="~{fragments/nav :: nav}"></div>
 <main class="page"><div class="page-heading"><div><h1>Produtos</h1><p class="muted">Cardápio, preços e quantidade em estoque.</p></div><a class="button" th:href="@{/home/produtos/create}">+ Novo produto</a></div>
+    <p class="alert" th:if="${param.erro == 'em-uso'}">Este produto aparece em pedidos e não pode ser excluído.</p>
     <div class="table-wrap" th:if="${!#lists.isEmpty(produtos)}"><table><thead><tr><th>Produto</th><th>Categoria</th><th>Preço de venda</th><th>Estoque</th><th>Ações</th></tr></thead><tbody>
         <tr th:each="produto : ${produtos}"><td th:text="${produto.nome}"></td><td th:text="${produto.categoria}"></td><td th:text="${produto.precoVenda != null ? 'R$ ' + produto.precoVenda : '—'}"></td><td th:text="${produto.quantidade}"></td><td><div class="actions"><a class="button button-secondary" th:href="@{/home/produtos/{id}/update(id=${produto.id})}">Editar</a><form th:action="@{/home/produtos/{id}/delete(id=${produto.id})}" method="post"><button class="button-danger" type="submit">Excluir</button></form></div></td></tr>
     </tbody></table></div><div class="card empty" th:if="${#lists.isEmpty(produtos)}">Nenhum produto cadastrado.</div>

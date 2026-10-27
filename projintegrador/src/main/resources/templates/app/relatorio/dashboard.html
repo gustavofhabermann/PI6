@@ -2,7 +2,7 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Painel | Mesa &amp; Sabor</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
 <body><div th:replace="~{fragments/nav :: nav}"></div>
-<main class="page"><div class="page-heading"><div><h1>Painel</h1><p class="muted">Acompanhe a operação do estabelecimento.</p></div><a class="button button-secondary" th:href="@{/home/relatorios}">Voltar aos relatórios</a></div>
+<main class="page"><div class="page-heading"><div><h1>Painel</h1><p class="muted">Acompanhe a operação do estabelecimento.</p></div><a class="button" th:href="@{/home/relatorios}">Voltar aos relatórios</a></div>
     <section class="grid"><article class="card"><div class="stat">Mesas</div><p class="muted">Acesse o cadastro e a organização do salão.</p><a th:href="@{/home/mesas}">Gerenciar mesas →</a></article>
         <article class="card"><div class="stat">Pedidos</div><p class="muted">Consulte pedidos abertos e registre vendas.</p><a th:href="@{/home/pedidos}">Gerenciar pedidos →</a></article>
         <article class="card"><div class="stat">Estoque</div><p class="muted">Mantenha o catálogo de produtos atualizado.</p><a th:href="@{/home/produtos}">Gerenciar produtos →</a></article>

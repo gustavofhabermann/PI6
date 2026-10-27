@@ -6,11 +6,10 @@
     <a th:href="@{/}">← Voltar ao início</a>
     <section class="card" style="margin-top: 18px">
         <h1>Criar conta</h1><p class="muted">Cadastre o usuário que vai administrar o sistema.</p>
-        <p class="alert" th:if="${param.erro == 'email'}">Este e-mail já está cadastrado.</p>
-        <form th:action="@{/cadastro}" method="post">
-            <div class="field"><label for="name">Nome</label><input id="name" name="name" type="text" autocomplete="name" required></div>
-            <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" required></div>
-            <div class="field"><label for="password">Senha</label><input id="password" name="password" type="password" autocomplete="new-password" minlength="6" required></div>
+        <form th:action="@{/cadastro}" th:object="${form}" method="post">
+            <div class="field"><label for="name">Nome</label><input id="name" th:field="*{name}" type="text" autocomplete="name" maxlength="100" required><small class="muted" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small></div>
+            <div class="field"><label for="email">E-mail</label><input id="email" th:field="*{email}" type="email" autocomplete="email" maxlength="254" required><small class="muted" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small></div>
+            <div class="field"><label for="password">Senha</label><input id="password" th:field="*{password}" type="password" autocomplete="new-password" minlength="8" maxlength="72" required><small class="muted" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small></div>
             <button type="submit">Criar conta</button>
         </form>
         <p class="muted" style="margin-bottom: 0">Já tem conta? <a th:href="@{/login}">Entrar</a></p>

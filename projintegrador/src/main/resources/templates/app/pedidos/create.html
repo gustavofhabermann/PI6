@@ -3,7 +3,10 @@
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Novo pedido | Mesa &amp; Sabor</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
 <body><div th:replace="~{fragments/nav :: nav}"></div>
 <main class="page-narrow"><section class="card"><h1>Novo pedido</h1><p class="muted">Escolha a mesa e adicione um ou mais produtos.</p>
-    <p class="alert" th:if="${param.erro}">Adicione pelo menos um produto ao pedido.</p>
+    <p class="alert" th:if="${param.erro == 'dados'}">Confira a mesa, os produtos e as quantidades do pedido.</p>
+    <p class="alert" th:if="${param.erro == 'mesa'}">A mesa selecionada não existe. Selecione uma mesa válida.</p>
+    <p class="alert" th:if="${param.erro == 'produto'}">Um dos produtos selecionados não existe ou está sem preço válido.</p>
+    <p class="alert" th:if="${param.erro == 'estoque'}">Estoque insuficiente para a quantidade solicitada.</p>
     <form th:action="@{/home/pedidos/pedido-produto}" method="post">
         <div class="field"><label for="mesaId">Mesa</label><select id="mesaId" name="mesaId" required><option value="">Selecione uma mesa</option><option th:each="mesa : ${mesas}" th:value="${mesa.id}" th:text="${'Mesa ' + mesa.numero}"></option></select></div>
         <p class="alert" th:if="${#lists.isEmpty(mesas)}">Cadastre uma mesa antes de abrir um pedido.</p>
@@ -11,10 +14,10 @@
         <template id="item-template"><div class="item-row">
             <div class="field product-field"><label>Produto</label><select name="produtoId" required onchange="atualizarPreco(this)"><option value="">Selecione</option><option th:each="produto : ${produtos}" th:value="${produto.id}" th:text="${produto.nome}" th:attr="data-preco=${produto.precoVenda}"></option></select></div>
             <div class="field"><label>Qtd.</label><input name="quantidade" type="number" min="1" value="1" required></div>
-            <div class="field"><label>Preço unitário</label><input name="precoUnitario" type="number" min="0" step="0.01" required></div>
+            <div class="field"><label>Preço unitário</label><input class="preco-unitario" type="number" min="0" step="0.01" readonly required></div>
             <button class="button-danger" type="button" onclick="this.closest('.item-row').remove()" aria-label="Remover item">Remover</button>
         </div></template>
-        <p class="alert" th:if="${#lists.isEmpty(produtos)}">Cadastre produtos antes de abrir um pedido.</p>
+        <p class="alert" th:if="${#lists.isEmpty(produtos)}">Cadastre produtos com estoque disponível antes de abrir um pedido.</p>
         <button class="button-secondary" type="button" onclick="adicionarItem()">+ Adicionar produto</button>
         <div class="form-actions"><button type="submit" th:disabled="${#lists.isEmpty(mesas) or #lists.isEmpty(produtos)}">Criar pedido</button><a class="button button-secondary" th:href="@{/home/pedidos}">Cancelar</a></div>
     </form>
@@ -26,7 +29,7 @@
     }
     function atualizarPreco(select) {
         const option = select.options[select.selectedIndex];
-        const input = select.closest('.item-row').querySelector('input[name="precoUnitario"]');
+        const input = select.closest('.item-row').querySelector('.preco-unitario');
         input.value = option.dataset.preco || '';
     }
     adicionarItem();

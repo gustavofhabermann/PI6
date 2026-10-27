@@ -3,6 +3,8 @@
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Nova mesa | Mesa &amp; Sabor</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
 <body><div th:replace="~{fragments/nav :: nav}"></div>
 <main class="page-narrow"><section class="card"><h1>Nova mesa</h1>
+    <p class="alert" th:if="${param.erro == 'dados'}">Número e quantidade de lugares devem ser maiores que zero.</p>
+    <p class="alert" th:if="${param.erro == 'numero'}">Já existe uma mesa com esse número.</p>
     <form th:action="@{/home/mesas/create}" th:object="${mesa}" method="post">
         <div class="field"><label for="numero">Número da mesa</label><input id="numero" th:field="*{numero}" type="number" min="1" required></div>
         <div class="field"><label for="quantidade">Quantidade de lugares</label><input id="quantidade" th:field="*{quantidade}" type="number" min="1" value="4" required></div>

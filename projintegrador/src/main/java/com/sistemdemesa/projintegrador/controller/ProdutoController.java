@@ -1,19 +1,29 @@
 package com.sistemdemesa.projintegrador.controller;
 
 import com.sistemdemesa.projintegrador.entity.Produto;
+import com.sistemdemesa.projintegrador.repository.PedidoProdutoRepository;
 import com.sistemdemesa.projintegrador.repository.ProdutoRepository;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/home/produtos")
 public class ProdutoController {
     private final ProdutoRepository repo;
+    private final PedidoProdutoRepository itensPedido;
 
-    public ProdutoController(ProdutoRepository r) {
+    public ProdutoController(ProdutoRepository r, PedidoProdutoRepository itensPedido) {
         repo = r;
+        this.itensPedido = itensPedido;
+    }
+
+    @InitBinder
+    void bloquearId(WebDataBinder binder) {
+        binder.setDisallowedFields("id");
     }
 
     @GetMapping
@@ -29,7 +39,10 @@ public class ProdutoController {
     }
 
     @PostMapping("/create")
-    String salvar(@Valid @ModelAttribute Produto p) {
+    String salvar(@Valid @ModelAttribute("produto") Produto p, BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/home/produtos/create?erro=dados";
+        }
         repo.save(p);
         return "redirect:/home/produtos";
     }
@@ -41,7 +54,10 @@ public class ProdutoController {
     }
 
     @PostMapping("/{id}/update")
-    String atualizar(@PathVariable Long id, @Valid @ModelAttribute Produto p) {
+    String atualizar(@PathVariable Long id, @Valid @ModelAttribute("produto") Produto p, BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/home/produtos/" + id + "/update?erro=dados";
+        }
         Produto e = repo.findById(id).orElseThrow();
         e.setNome(p.getNome());
         e.setCategoria(p.getCategoria());
@@ -54,6 +70,9 @@ public class ProdutoController {
 
     @PostMapping("/{id}/delete")
     String excluir(@PathVariable Long id) {
+        if (itensPedido.existsByProduto_Id(id)) {
+            return "redirect:/home/produtos?erro=em-uso";
+        }
         repo.deleteById(id);
         return "redirect:/home/produtos";
     }

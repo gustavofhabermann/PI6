@@ -1,11 +1,42 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Relatórios | Mesa &amp; Sabor</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
-<body><div th:replace="~{fragments/nav :: nav}"></div>
-<main class="page"><div class="page-heading"><div><h1>Relatórios</h1><p class="muted">Exporte informações do sistema em PDF.</p></div><a class="button button-secondary" th:href="@{/home/relatorios/dashboard}">Ver painel</a></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Relat&oacute;rios | Mesa &amp; Sabor</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+<main class="page">
+    <div class="page-heading">
+        <div>
+            <h1>Relat&oacute;rios</h1>
+            <p class="muted">Exporte informa&ccedil;&otilde;es do sistema em PDF.</p>
+        </div>
+    </div>
     <section class="grid">
-        <article class="card"><h2>Produtos</h2><p class="muted">Lista de produtos e preços de venda.</p><a class="button" th:href="@{/home/relatorios/exportar/produtos}">Baixar PDF</a></article>
-        <article class="card"><h2>Vendas do dia</h2><p class="muted">Pedidos concluídos hoje.</p><a class="button" th:href="@{/home/relatorios/exportar/vendasdia}">Baixar PDF</a></article>
-        <article class="card"><h2>Vendas do mês</h2><p class="muted">Pedidos concluídos neste mês.</p><a class="button" th:href="@{/home/relatorios/exportar/vendasmes}">Baixar PDF</a></article>
+        <article class="card">
+            <h2>Produtos</h2>
+            <p class="muted">Lista de produtos e pre&ccedil;os de venda.</p>
+            <a class="button" th:href="@{/home/relatorios/exportar/produtos}">Baixar PDF</a>
+        </article>
+        <article class="card">
+            <h2>Vendas do dia</h2>
+            <p class="muted">Pedidos conclu&iacute;dos hoje.</p>
+            <a class="button" th:href="@{/home/relatorios/exportar/vendasdia}">Baixar PDF</a>
+        </article>
+        <article class="card">
+            <h2>Vendas do m&ecirc;s</h2>
+            <p class="muted">Pedidos conclu&iacute;dos neste m&ecirc;s.</p>
+            <a class="button" th:href="@{/home/relatorios/exportar/vendasmes}">Baixar PDF</a>
+        </article>
+        <article class="card">
+            <h2>Painel</h2>
+            <p class="muted">Acompanhe um resumo da opera&ccedil;&atilde;o do estabelecimento.</p>
+            <a class="button" th:href="@{/home/relatorios/dashboard}">Ver painel</a>
+        </article>
     </section>
-</main></body></html>
+</main>
+</body>
+</html>
